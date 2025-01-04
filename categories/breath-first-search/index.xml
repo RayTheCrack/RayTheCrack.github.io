@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Breath First Search on OxyTheCrack</title>
-        <link>https://raythecrack.github.io/categories/breath-first-search/</link>
+        <link>http://localhost:59265/categories/breath-first-search/</link>
         <description>Recent content in Breath First Search on OxyTheCrack</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Gao &#34;KieRaN&#34; Ziyuan</copyright>
-        <lastBuildDate>Mon, 30 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://raythecrack.github.io/categories/breath-first-search/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 30 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:59265/categories/breath-first-search/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Slimes</title>
-        <link>https://raythecrack.github.io/p/slimes/</link>
+        <link>http://localhost:59265/p/slimes/</link>
         <pubDate>Mon, 30 Dec 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://raythecrack.github.io/p/slimes/</guid>
+        <guid>http://localhost:59265/p/slimes/</guid>
         <description>&lt;h3 id=&#34;problem-statement&#34;&gt;Problem Statement
 &lt;/h3&gt;&lt;p&gt;There is a grid with $H$ horizontal rows and $W$ vertical columns. Let $(i, j)$ denote the cell at the $i$-th row $(1\leq i\leq H)$ from the top and $j$-th column $(1\leq j\leq W)$ from the left.&lt;/p&gt;
 &lt;p&gt;Initially, there is a slime with strength $S _ {i,j}$ in cell $(i,j)$, and Takahashi is the slime in the cell $(P,Q)$.&lt;/p&gt;

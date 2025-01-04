@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>DP on OxyTheCrack</title>
-        <link>https://raythecrack.github.io/categories/</link>
-        <description>Recent content in DP on OxyTheCrack</description>
+        <title>Tags on OxyTheCrack</title>
+        <link>http://localhost:59265/categories/</link>
+        <description>Recent content in Tags on OxyTheCrack</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Gao &#34;KieRaN&#34; Ziyuan</copyright>
-        <lastBuildDate>Thu, 02 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://raythecrack.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 02 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:59265/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Graphs</title>
-        <link>https://raythecrack.github.io/categories/graphs/</link>
+        <link>http://localhost:59265/categories/graphs/</link>
         <pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://raythecrack.github.io/categories/graphs/</guid>
-        <description>&lt;img src="https://raythecrack.github.io/categories/graphs/Graphs.png" alt="Featured image of post Graphs" /&gt;</description>
+        <guid>http://localhost:59265/categories/graphs/</guid>
+        <description>&lt;img src="http://localhost:59265/categories/graphs/Graphs.png" alt="Featured image of post Graphs" /&gt;</description>
         </item>
         <item>
         <title>Shortest Paths</title>
-        <link>https://raythecrack.github.io/categories/shortest-paths/</link>
+        <link>http://localhost:59265/categories/shortest-paths/</link>
         <pubDate>Thu, 02 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://raythecrack.github.io/categories/shortest-paths/</guid>
-        <description>&lt;img src="https://raythecrack.github.io/categories/shortest-paths/SP.png" alt="Featured image of post Shortest Paths" /&gt;</description>
+        <guid>http://localhost:59265/categories/shortest-paths/</guid>
+        <description>&lt;img src="http://localhost:59265/categories/shortest-paths/SP.png" alt="Featured image of post Shortest Paths" /&gt;</description>
         </item>
         <item>
         <title>Breath First Search</title>
-        <link>https://raythecrack.github.io/categories/breath-first-search/</link>
+        <link>http://localhost:59265/categories/breath-first-search/</link>
         <pubDate>Mon, 30 Dec 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://raythecrack.github.io/categories/breath-first-search/</guid>
-        <description>&lt;img src="https://raythecrack.github.io/categories/breath-first-search/BFS.png" alt="Featured image of post Breath First Search" /&gt;</description>
+        <guid>http://localhost:59265/categories/breath-first-search/</guid>
+        <description>&lt;img src="http://localhost:59265/categories/breath-first-search/BFS.png" alt="Featured image of post Breath First Search" /&gt;</description>
         </item>
         <item>
         <title>DP</title>
-        <link>https://raythecrack.github.io/categories/dp/</link>
+        <link>http://localhost:59265/categories/dp/</link>
         <pubDate>Mon, 30 Dec 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://raythecrack.github.io/categories/dp/</guid>
-        <description>&lt;img src="https://raythecrack.github.io/categories/dp/DP.png" alt="Featured image of post DP" /&gt;</description>
+        <guid>http://localhost:59265/categories/dp/</guid>
+        <description>&lt;img src="http://localhost:59265/categories/dp/DP.png" alt="Featured image of post DP" /&gt;</description>
         </item>
         <item>
         <title>Greedy</title>
-        <link>https://raythecrack.github.io/categories/greedy/</link>
+        <link>http://localhost:59265/categories/greedy/</link>
         <pubDate>Mon, 30 Dec 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://raythecrack.github.io/categories/greedy/</guid>
-        <description>&lt;img src="https://raythecrack.github.io/categories/greedy/Greedy.png" alt="Featured image of post Greedy" /&gt;</description>
+        <guid>http://localhost:59265/categories/greedy/</guid>
+        <description>&lt;img src="http://localhost:59265/categories/greedy/Greedy.png" alt="Featured image of post Greedy" /&gt;</description>
         </item>
         <item>
         <title>Strings</title>
-        <link>https://raythecrack.github.io/categories/strings/</link>
+        <link>http://localhost:59265/categories/strings/</link>
         <pubDate>Mon, 30 Dec 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://raythecrack.github.io/categories/strings/</guid>
-        <description>&lt;img src="https://raythecrack.github.io/categories/strings/String.png" alt="Featured image of post Strings" /&gt;</description>
+        <guid>http://localhost:59265/categories/strings/</guid>
+        <description>&lt;img src="http://localhost:59265/categories/strings/String.png" alt="Featured image of post Strings" /&gt;</description>
         </item>
         
     </channel>
