@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Atcoder Beginner Contest 384 E">
-<title>Slimes</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Atcoder Beginner Contest 387 D">
+<title>Snaky Walk</title>
 
-<link rel='canonical' href='https://raythecrack.github.io/p/slimes/'>
+<link rel='canonical' href='https://raythecrack.github.io/p/snaky-walk/'>
 
-<link rel="stylesheet" href="/scss/style.min.e7779064ef3003fd80bc20b56cc5f4f2a29254db088cd4a0ec84c35c7a33dddc.css"><meta property='og:title' content="Slimes">
-<meta property='og:description' content="Atcoder Beginner Contest 384 E">
-<meta property='og:url' content='https://raythecrack.github.io/p/slimes/'>
+<link rel="stylesheet" href="/scss/style.min.e7779064ef3003fd80bc20b56cc5f4f2a29254db088cd4a0ec84c35c7a33dddc.css"><meta property='og:title' content="Snaky Walk">
+<meta property='og:description' content="Atcoder Beginner Contest 387 D">
+<meta property='og:url' content='https://raythecrack.github.io/p/snaky-walk/'>
 <meta property='og:site_name' content='OxyTheCrack'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-12-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-12-30T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Slimes">
-<meta name="twitter:description" content="Atcoder Beginner Contest 384 E">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-07T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Snaky Walk">
+<meta name="twitter:description" content="Atcoder Beginner Contest 387 D">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -250,21 +250,17 @@
                 Breath First Search
             </a>
         
-            <a href="/categories/greedy/" style="background-color: #9400D3; color: #fff;">
-                Greedy
-            </a>
-        
     </header>
     
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/slimes/">Slimes</a>
+            <a href="/p/snaky-walk/">Snaky Walk</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Atcoder Beginner Contest 384 E
+            Atcoder Beginner Contest 387 D
         </h3>
         
     </div>
@@ -285,7 +281,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2024-12-30</time>
+                <time class="article-time--published">2025-01-07</time>
             </div>
         
 
@@ -300,7 +296,7 @@
 
 
                 <time class="article-time--reading">
-                    3 minute read
+                    2 minute read
                 </time>
             </div>
         
@@ -316,35 +312,38 @@
     
     
     <h3 id="problem-statement">Problem Statement
-</h3><p>There is a grid with $H$ horizontal rows and $W$ vertical columns. Let $(i, j)$ denote the cell at the $i$-th row $(1\leq i\leq H)$ from the top and $j$-th column $(1\leq j\leq W)$ from the left.</p>
-<p>Initially, there is a slime with strength $S _ {i,j}$ in cell $(i,j)$, and Takahashi is the slime in the cell $(P,Q)$.</p>
-<p>Find the maximum possible strength of Takahashi after performing the following action any number of times (possibly zero):</p>
+</h3><p>You are given a grid with $H$ rows and $W$ columns. Let $(i,j)$ denote the cell at the $i$-th row from the top and the $j$-th column from the left.</p>
+<p>Each cell is one of the following: a start cell, a goal cell, an empty cell, or an obstacle cell. This information is described by $H$ strings $S_1,S_2,\dots,S_H$, each of length $W$. Specifically, the cell $(i,j)$ is a start cell if the $j$-th character of $S_i$ is <code>S</code>, a goal cell if it is <code>G</code>, an empty cell if it is <code>.</code>, and an obstacle cell if it is <code>#</code>. It is guaranteed that there is exactly one start cell and exactly one goal cell.</p>
+<p>You are currently on the start cell. Your objective is to reach the goal cell by repeatedly moving to a cell adjacent by an edge to the one you are in. However, you cannot move onto an obstacle cell or move outside the grid, and you must alternate between moving vertically and moving horizontally each time. (The direction of the first move can be chosen arbitrarily.)</p>
+<p>Determine if it is possible to reach the goal cell. If it is, find the minimum number of moves required.</p>
+<p>More formally, check if there exists a sequence of cells $(i_1,j_1),(i_2,j_2),\dots,(i_k,j_k)$ satisfying all of the following conditions. If such a sequence exists, find the minimum value of $k-1$.</p>
 <ul>
-<li>Among the slimes adjacent to him, choose one whose strength is <strong>strictly less than</strong> $\dfrac{1}{X}$ times his strength and absorb it. As a result, the absorbed slime disappears, and Takahashi&rsquo;s strength increases by the strength of the absorbed slime.</li>
+<li>For every $1 \leq l \leq k$, it holds that $1 \leq i_l \leq H$ and $1 \leq j_l \leq W$, and $(i_l,j_l)$ is not an obstacle cell.</li>
+<li>$(i_1,j_1)$ is the start cell.</li>
+<li>$(i_k,j_k)$ is the goal cell.</li>
+<li>For every $1 \leq l \leq k-1$, $|i_l - i_{l+1}| + |j_l - j_{l+1}| = 1$.</li>
+<li>For every $1 \leq l \leq k-2$, if $i_l \neq i_{l+1}$, then $i_{l+1} = i_{l+2}$.</li>
+<li>For every $1 \leq l \leq k-2$, if $j_l \neq j_{l+1}$, then $j_{l+1} = j_{l+2}$.</li>
 </ul>
-<p>When performing the above action, the gap left by the disappeared slime is immediately filled by Takahashi, and the slimes that were adjacent to the disappeared one (if any) become newly adjacent to Takahashi (refer to the explanation in sample 1).</p>
 <h3 id="constraints">Constraints
 </h3><ul>
-<li>$1\leq H,W\leq500$</li>
-<li>$1\leq P\leq H$</li>
-<li>$1\leq Q\leq W$</li>
-<li>$1\leq X\leq10^9$</li>
-<li>$1\leq S _ {i,j}\leq10^{12}$</li>
-<li>All input values are integers.</li>
+<li>$1 \leq H,W \leq 1000$</li>
+<li>$H$ and $W$ are integers.</li>
+<li>Each $S_i$ is a string of length $W$ consisting of <code>S</code>, <code>G</code>, <code>.</code>, <code>#</code>.</li>
+<li>There is exactly one start cell and exactly one goal cell.</li>
 </ul>
 <h3 id="input">Input
-</h3><p>The input is given in the following format from Standard Input:</p>
-<p>$H$  $W$  $X$</p>
-<p>$P$  $Q$</p>
-<p>$S _ {1,1}$ $S _ {1,2}$ $\ldots$ $S _ {1,W}$
-$S _ {2,1}$ $S _ {2,2}$ $\ldots$ $S _ {2,W}$
-$\vdots$
-$S _ {H,1}$ $S _ {H,2}$ $\ldots$ $S _ {H,W}$</p>
+</h3><p>The input is given from Standard Input in the following format:</p>
+<p>$H$ $W$</p>
+<p>$S_1$</p>
+<p>$S_2$</p>
+<p>$\vdots$</p>
+<p>$S_H$</p>
 <h3 id="output">Output
-</h3><p>Print the maximum possible strength of Takahashi after performing the action.</p>
-<hr>
+</h3><p>If it is possible to reach the goal cell, print the minimum number of moves. Otherwise, print <code>-1</code>.</p>
 <h3 id="solving">Solving
-</h3><div class="highlight"><div class="chroma">
+</h3><p><em>The following code was compiled by using C++:</em></p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -410,70 +409,122 @@ $S _ {H,1}$ $S _ {H,2}$ $\ldots$ $S _ {H,W}$</p>
 </span><span class="lnt">62
 </span><span class="lnt">63
 </span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define INF 0x3f3f3f3f
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">ll</span> <span class="o">=</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">sx</span><span class="p">,</span><span class="n">sy</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">505</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="n">mp</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">vis</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nb">false</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">dx</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">dy</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//&lt;sth,[x,y]&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">ll</span><span class="p">,</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">ll</span><span class="p">,</span><span class="n">ll</span><span class="o">&gt;&gt;</span> <span class="n">pll</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">check</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">)</span><span class="c1">//check if the coord legal
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">check</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">)</span><span class="c1">//检查是否越界
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;=</span><span class="mi">0</span><span class="o">||</span><span class="n">y</span><span class="o">&lt;=</span><span class="mi">0</span><span class="o">||</span><span class="n">x</span><span class="o">&gt;</span><span class="n">n</span><span class="o">||</span><span class="n">y</span><span class="o">&gt;</span><span class="n">m</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">vis</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">])</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span> <span class="nf">nxt_pow</span><span class="p">(</span><span class="n">ll</span> <span class="n">pow</span><span class="p">)</span><span class="c1">//return the power after devoured another block,if its greater than the top element in the minheap is legal 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">pow</span><span class="o">%</span><span class="n">x</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">pow</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">return</span> <span class="n">pow</span><span class="o">/</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">),</span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">sx</span> <span class="o">&gt;&gt;</span> <span class="n">sy</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">mp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// strength and [x,y]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">pll</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pll</span><span class="o">&gt;</span><span class="p">,</span><span class="n">greater</span><span class="o">&lt;</span><span class="n">pll</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">;</span><span class="c1">//build Min-Heap
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">mp</span><span class="p">[</span><span class="n">sx</span><span class="p">][</span><span class="n">sy</span><span class="p">],{</span><span class="n">sx</span><span class="p">,</span><span class="n">sy</span><span class="p">}});</span><span class="c1">//push the start into heap
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">vis</span><span class="p">[</span><span class="n">sx</span><span class="p">][</span><span class="n">sy</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">ll</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//start with zero cuz in step one power will automatically add sth[sx,sy]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">bool</span> <span class="n">start</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//start BFS
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span><span class="o">&amp;&amp;</span><span class="n">nxt_pow</span><span class="p">(</span><span class="n">power</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="o">||</span><span class="n">start</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">start</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">now_x</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">now_y</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">ll</span> <span class="n">now_power</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">power</span> <span class="o">+=</span> <span class="n">now_power</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">now_x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">			<span class="kt">int</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">now_y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">			<span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">mp</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">ny</span><span class="p">],{</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">}});</span>
-</span></span><span class="line"><span class="cl">				<span class="n">vis</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">ny</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//output the ans
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">power</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">grid</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="c1">//定义字符串数组
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">sx</span><span class="p">,</span><span class="n">sy</span><span class="p">,</span><span class="n">ex</span><span class="p">,</span><span class="n">ey</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;S&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">sx</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">sy</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;G&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ex</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ey</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">bfs</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">vis</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">m</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span><span class="c1">//创建三维布尔数组，第三位用于存储到达此点时的移动方向 0 为水平到达 1 为垂直到达
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">memset</span><span class="p">(</span><span class="n">vis</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">vis</span><span class="p">));</span><span class="c1">//记得初始化vis数组
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">queue</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">sx</span><span class="p">,</span><span class="n">sy</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span><span class="c1">//start x ; start y ; Prev Status ; steps
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//入队前记得更新起点的状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">vis</span><span class="p">[</span><span class="n">sx</span><span class="p">][</span><span class="n">sy</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vis</span><span class="p">[</span><span class="n">sx</span><span class="p">][</span><span class="n">sy</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>   
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">now_x</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">now_y</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">prevdir</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">steps</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()[</span><span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span><span class="c1">//读取完信息直接出队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">now_x</span><span class="o">==</span><span class="n">ex</span> <span class="o">&amp;&amp;</span> <span class="n">now_y</span><span class="o">==</span><span class="n">ey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>   
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">steps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//之前垂直方向移动
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">prevdir</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">now_x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">now_y</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">grid</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">now_y</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39;#&#39;</span><span class="o">&amp;&amp;!</span><span class="n">vis</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">now_y</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">vis</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">now_y</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">nx</span><span class="p">,</span><span class="n">now_y</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">steps</span><span class="o">+</span><span class="mi">1</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">nx2</span> <span class="o">=</span> <span class="n">now_x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">nx2</span><span class="p">,</span><span class="n">now_y</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">grid</span><span class="p">[</span><span class="n">nx2</span><span class="p">][</span><span class="n">now_y</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39;#&#39;</span><span class="o">&amp;&amp;!</span><span class="n">vis</span><span class="p">[</span><span class="n">nx2</span><span class="p">][</span><span class="n">now_y</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">vis</span><span class="p">[</span><span class="n">nx2</span><span class="p">][</span><span class="n">now_y</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">nx2</span><span class="p">,</span><span class="n">now_y</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">steps</span><span class="o">+</span><span class="mi">1</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//之前水平方向移动
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>         <span class="k">if</span><span class="p">(</span><span class="n">prevdir</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">now_y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">now_x</span><span class="p">,</span><span class="n">ny</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">grid</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39;#&#39;</span><span class="o">&amp;&amp;!</span><span class="n">vis</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">vis</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">now_x</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">steps</span><span class="o">+</span><span class="mi">1</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">ny2</span> <span class="o">=</span> <span class="n">now_y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">now_x</span><span class="p">,</span><span class="n">ny2</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">grid</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny2</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39;#&#39;</span><span class="o">&amp;&amp;!</span><span class="n">vis</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">vis</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">now_x</span><span class="p">,</span><span class="n">ny2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">steps</span><span class="o">+</span><span class="mi">1</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="c1">//无法到达返回-1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">bfs</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -538,12 +589,12 @@ $S _ {H,1}$ $S _ {H,2}$ $\ldots$ $S _ {H,W}$</p>
             
                 
 <article class="">
-    <a href="/p/snaky-walk/">
+    <a href="/p/slimes/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Snaky Walk</h2>
+            <h2 class="article-title">Slimes</h2>
         </div>
     </a>
 </article>
