@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Atcoder Beginner Contest 387 D">
-<title>Snaky Walk</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Luogu P2196">
+<title>挖地雷</title>
 
-<link rel='canonical' href='https://raythecrack.github.io/p/snaky-walk/'>
+<link rel='canonical' href='https://raythecrack.github.io/p/%E6%8C%96%E5%9C%B0%E9%9B%B7/'>
 
-<link rel="stylesheet" href="/scss/style.min.e883ca59c434d32c7107052501fb2ccb6f2b569fd38bc0d3655db7f9780146e4.css"><meta property='og:title' content="Snaky Walk">
-<meta property='og:description' content="Atcoder Beginner Contest 387 D">
-<meta property='og:url' content='https://raythecrack.github.io/p/snaky-walk/'>
+<link rel="stylesheet" href="/scss/style.min.e883ca59c434d32c7107052501fb2ccb6f2b569fd38bc0d3655db7f9780146e4.css"><meta property='og:title' content="挖地雷">
+<meta property='og:description' content="Luogu P2196">
+<meta property='og:url' content='https://raythecrack.github.io/p/%E6%8C%96%E5%9C%B0%E9%9B%B7/'>
 <meta property='og:site_name' content='OxyTheCrack'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-07T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Snaky Walk">
-<meta name="twitter:description" content="Atcoder Beginner Contest 387 D">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="挖地雷">
+<meta name="twitter:description" content="Luogu P2196">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -222,9 +222,10 @@
     <li>
       <ol>
         <li><a href="#problem-statement">Problem Statement</a></li>
-        <li><a href="#constraints">Constraints</a></li>
         <li><a href="#input">Input</a></li>
         <li><a href="#output">Output</a></li>
+        <li><a href="#sample-input">Sample Input</a></li>
+        <li><a href="#sample-output">Sample Output</a></li>
         <li><a href="#solving">Solving</a></li>
       </ol>
     </li>
@@ -246,8 +247,16 @@
     
     <header class="article-category">
         
-            <a href="/categories/breath-first-search/" style="background-color: #7DDA58; color: #fff;">
-                Breath First Search
+            <a href="/categories/dp/" style="background-color: #DC143C; color: #fff;">
+                DP
+            </a>
+        
+            <a href="/categories/graphs/" style="background-color: #4682B4; color: #fff;">
+                Graphs
+            </a>
+        
+            <a href="/categories/depth-first-search/" style="background-color: #6A5ACD; color: #fff;">
+                Depth First Search
             </a>
         
     </header>
@@ -255,12 +264,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/snaky-walk/">Snaky Walk</a>
+            <a href="/p/%E6%8C%96%E5%9C%B0%E9%9B%B7/">挖地雷</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Atcoder Beginner Contest 387 D
+            Luogu P2196
         </h3>
         
     </div>
@@ -281,7 +290,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-01-07</time>
+                <time class="article-time--published">2025-01-11</time>
             </div>
         
 
@@ -296,7 +305,7 @@
 
 
                 <time class="article-time--reading">
-                    2 minute read
+                    3 minute read
                 </time>
             </div>
         
@@ -312,38 +321,53 @@
     
     
     <h3 id="problem-statement">Problem Statement
-</h3><p>You are given a grid with $H$ rows and $W$ columns. Let $(i,j)$ denote the cell at the $i$-th row from the top and the $j$-th column from the left.</p>
-<p>Each cell is one of the following: a start cell, a goal cell, an empty cell, or an obstacle cell. This information is described by $H$ strings $S_1,S_2,\dots,S_H$, each of length $W$. Specifically, the cell $(i,j)$ is a start cell if the $j$-th character of $S_i$ is <code>S</code>, a goal cell if it is <code>G</code>, an empty cell if it is <code>.</code>, and an obstacle cell if it is <code>#</code>. It is guaranteed that there is exactly one start cell and exactly one goal cell.</p>
-<p>You are currently on the start cell. Your objective is to reach the goal cell by repeatedly moving to a cell adjacent by an edge to the one you are in. However, you cannot move onto an obstacle cell or move outside the grid, and you must alternate between moving vertically and moving horizontally each time. (The direction of the first move can be chosen arbitrarily.)</p>
-<p>Determine if it is possible to reach the goal cell. If it is, find the minimum number of moves required.</p>
-<p>More formally, check if there exists a sequence of cells $(i_1,j_1),(i_2,j_2),\dots,(i_k,j_k)$ satisfying all of the following conditions. If such a sequence exists, find the minimum value of $k-1$.</p>
-<ul>
-<li>For every $1 \leq l \leq k$, it holds that $1 \leq i_l \leq H$ and $1 \leq j_l \leq W$, and $(i_l,j_l)$ is not an obstacle cell.</li>
-<li>$(i_1,j_1)$ is the start cell.</li>
-<li>$(i_k,j_k)$ is the goal cell.</li>
-<li>For every $1 \leq l \leq k-1$, $|i_l - i_{l+1}| + |j_l - j_{l+1}| = 1$.</li>
-<li>For every $1 \leq l \leq k-2$, if $i_l \neq i_{l+1}$, then $i_{l+1} = i_{l+2}$.</li>
-<li>For every $1 \leq l \leq k-2$, if $j_l \neq j_{l+1}$, then $j_{l+1} = j_{l+2}$.</li>
-</ul>
-<h3 id="constraints">Constraints
-</h3><ul>
-<li>$1 \leq H,W \leq 1000$</li>
-<li>$H$ and $W$ are integers.</li>
-<li>Each $S_i$ is a string of length $W$ consisting of <code>S</code>, <code>G</code>, <code>.</code>, <code>#</code>.</li>
-<li>There is exactly one start cell and exactly one goal cell.</li>
-</ul>
+</h3><p>在一个地图上有 $N\ (N \le 20)$ 个地窖，每个地窖中埋有一定数量的地雷。同时，给出地窖之间的连接路径。当地窖及其连接的数据给出之后，某人可以从任一处开始挖地雷，然后可以沿着指出的连接往下挖（仅能选择一条路径），当无连接时挖地雷工作结束。设计一个挖地雷的方案，使某人能挖到最多的地雷。</p>
 <h3 id="input">Input
-</h3><p>The input is given from Standard Input in the following format:</p>
-<p>$H$ $W$</p>
-<p>$S_1$</p>
-<p>$S_2$</p>
-<p>$\vdots$</p>
-<p>$S_H$</p>
+</h3><p>有若干行。</p>
+<p>第 $1$ 行只有一个数字，表示地窖的个数 $N$。</p>
+<p>第 $2$ 行有 $N$ 个数，分别表示每个地窖中的地雷个数。</p>
+<p>第 $3$ 行至第 $N+1$ 行表示地窖之间的连接情况：</p>
+<p>第 $3$ 行有 $n-1$ 个数（$0$ 或 $1$），表示第一个地窖至第 $2$ 个、第 $3$ 个 $\dots$ 第 $n$ 个地窖有否路径连接。如第 $3$ 行为 $11000\cdots 0$，则表示第 $1$ 个地窖至第 $2$ 个地窖有路径，至第 $3$ 个地窖有路径，至第 $4$ 个地窖、第 $5$ 个 $\dots$ 第 $n$ 个地窖没有路径。</p>
+<p>第 $4$ 行有 $n-2$ 个数，表示第二个地窖至第 $3$ 个、第 $4$ 个 $\dots$ 第 $n$ 个地窖有否路径连接。</p>
+<p>……</p>
+<p>第 $n+1$ 行有 $1$ 个数，表示第 $n-1$ 个地窖至第 $n$ 个地窖有否路径连接。（为 $0$ 表示没有路径，为 $1$ 表示有路径）。</p>
 <h3 id="output">Output
-</h3><p>If it is possible to reach the goal cell, print the minimum number of moves. Otherwise, print <code>-1</code>.</p>
+</h3><p>第一行表示挖得最多地雷时的挖地雷的顺序，各地窖序号间以一个空格分隔，不得有多余的空格。</p>
+<p>第二行只有一个数，表示能挖到的最多地雷数。</p>
+<h3 id="sample-input">Sample Input
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">5
+</span></span><span class="line"><span class="cl">10 8 4 7 6
+</span></span><span class="line"><span class="cl">1 1 1 0
+</span></span><span class="line"><span class="cl">0 0 0
+</span></span><span class="line"><span class="cl">1 1
+</span></span><span class="line"><span class="cl">1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="sample-output">Sample Output
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 3 4 5
+</span></span><span class="line"><span class="cl">27
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Problem Sourse</strong></p>
+<p>NOIP 1996 提高组第三题</p>
 <h3 id="solving">Solving
-</h3><p><em>The following code was compiled by using C++:</em></p>
-<div class="highlight"><div class="chroma">
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -404,132 +428,74 @@
 </span><span class="lnt">57
 </span><span class="lnt">58
 </span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span><span class="lnt">80
-</span><span class="lnt">81
-</span><span class="lnt">82
-</span><span class="lnt">83
-</span><span class="lnt">84
-</span><span class="lnt">85
-</span><span class="lnt">86
-</span><span class="lnt">87
-</span><span class="lnt">88
-</span><span class="lnt">89
-</span><span class="lnt">90
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define INF 0x3f3f3f3f
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">ll</span> <span class="o">=</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1001</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">check</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">)</span><span class="c1">//检查是否越界
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">pii</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">ll</span><span class="p">,</span><span class="n">ll</span><span class="o">&gt;</span> <span class="n">pll</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">pre</span><span class="p">[</span><span class="mi">21</span><span class="p">];</span><span class="c1">//用于记录前驱节点，记录到达pre[i]节点的前一个节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span><span class="c1">//DFS深搜输出前驱节点
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">pre</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="c1">//若已经追溯到路径起点，则直接输出当前地窖编号后结束DFS
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dfs</span><span class="p">(</span><span class="n">pre</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span><span class="c1">//否则继续调用DFS输出pre[x]的前驱节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;</span><span class="c1">//最后输出pos,及最后的节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">grid</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="c1">//定义字符串数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">sx</span><span class="p">,</span><span class="n">sy</span><span class="p">,</span><span class="n">ex</span><span class="p">,</span><span class="n">ey</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">mp</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">mp</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">mp</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;S&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="n">sx</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">                <span class="n">sy</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;G&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="n">ex</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">                <span class="n">ey</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">mp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">bfs</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">vis</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">m</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span><span class="c1">//创建三维布尔数组，第三位用于存储到达此点时的移动方向 0 为水平到达 1 为垂直到达
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">memset</span><span class="p">(</span><span class="n">vis</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">vis</span><span class="p">));</span><span class="c1">//记得初始化vis数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">queue</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="err">；</span>
-</span></span><span class="line"><span class="cl">    <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">sx</span><span class="p">,</span><span class="n">sy</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span><span class="c1">//start x ; start y ; Prev Status ; steps
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//入队前记得更新起点的状态
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">vis</span><span class="p">[</span><span class="n">sx</span><span class="p">][</span><span class="n">sy</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">vis</span><span class="p">[</span><span class="n">sx</span><span class="p">][</span><span class="n">sy</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>   
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">now_x</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">now_y</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()[</span><span class="mi">1</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">prevdir</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()[</span><span class="mi">2</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">steps</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()[</span><span class="mi">3</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span><span class="c1">//读取完信息直接出队
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">now_x</span><span class="o">==</span><span class="n">ex</span> <span class="o">&amp;&amp;</span> <span class="n">now_y</span><span class="o">==</span><span class="n">ey</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>   
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">steps</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//之前垂直方向移动
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">prevdir</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span><span class="c1">//到达第i个地窖所能挖到的最大地雷数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">memset</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">dp</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">pos</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">now_x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">now_y</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">grid</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">now_y</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39;#&#39;</span><span class="o">&amp;&amp;!</span><span class="n">vis</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">now_y</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">            <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="n">vis</span><span class="p">[</span><span class="n">nx</span><span class="p">][</span><span class="n">now_y</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">nx</span><span class="p">,</span><span class="n">now_y</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">steps</span><span class="o">+</span><span class="mi">1</span><span class="p">});</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">nx2</span> <span class="o">=</span> <span class="n">now_x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">nx2</span><span class="p">,</span><span class="n">now_y</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">grid</span><span class="p">[</span><span class="n">nx2</span><span class="p">][</span><span class="n">now_y</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39;#&#39;</span><span class="o">&amp;&amp;!</span><span class="n">vis</span><span class="p">[</span><span class="n">nx2</span><span class="p">][</span><span class="n">now_y</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">            <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="n">vis</span><span class="p">[</span><span class="n">nx2</span><span class="p">][</span><span class="n">now_y</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">nx2</span><span class="p">,</span><span class="n">now_y</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">steps</span><span class="o">+</span><span class="mi">1</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">mp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="c1">//若 j -&gt; i 为通路
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="n">pre</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//之前水平方向移动
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>         <span class="k">if</span><span class="p">(</span><span class="n">prevdir</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="n">ans</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">now_y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">now_x</span><span class="p">,</span><span class="n">ny</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">grid</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39;#&#39;</span><span class="o">&amp;&amp;!</span><span class="n">vis</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">            <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="n">vis</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">now_x</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">steps</span><span class="o">+</span><span class="mi">1</span><span class="p">});</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">ny2</span> <span class="o">=</span> <span class="n">now_y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">now_x</span><span class="p">,</span><span class="n">ny2</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">grid</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny2</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39;#&#39;</span><span class="o">&amp;&amp;!</span><span class="n">vis</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">            <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="n">vis</span><span class="p">[</span><span class="n">now_x</span><span class="p">][</span><span class="n">ny2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">now_x</span><span class="p">,</span><span class="n">ny2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">steps</span><span class="o">+</span><span class="mi">1</span><span class="p">});</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ans</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="c1">//更新最大值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">pos</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span><span class="c1">//记录最终的位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="c1">//无法到达返回-1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">};</span>
-</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">bfs</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dfs</span><span class="p">(</span><span class="n">pos</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>
+</div><blockquote>
+<p>内层循环遍历所有地窖 <code>j</code>，通过判断 <code>mp[j][i]</code> 是否为 <code>1</code>，来检查地窖 <code>j</code> 与地窖 <code>i</code> 是否有路径相连。如果有连接，就考虑从地窖 <code>j</code> 转移到地窖 <code>i</code>，更新 <code>dp[i]</code> 的值：<code>dp[i] = max(dp[i], dp[j])</code>。这一步是在说，如果能从地窖 <code>j</code> 走到地窖 <code>i</code>，那么到达地窖 <code>i</code> 能挖到的最大地雷数，要和从地窖 <code>j</code> 过来的情况做比较，取较大值。</p>
+<p>同时，当 <code>dp[i] == dp[j]</code> 时，更新 <code>pre[i] = j</code>，这里 <code>pre</code> 数组用于记录路径，即如果从地窖 <code>j</code> 走到地窖 <code>i</code> 能得到一样好的结果，就把 <code>j</code> 记为走到 <code>i</code> 的前一个地窖(因为此时 <code>i</code> 地窖还没有加上该地窖的地雷数量)</p>
+</blockquote>
+
 </section>
 
 
@@ -589,12 +555,64 @@
             
                 
 <article class="">
-    <a href="/p/slimes/">
+    <a href="/p/dp-details-collection/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Slimes</h2>
+            <h2 class="article-title">DP Details Collection</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/number-triangles/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Number Triangles</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%A2%AB%E6%B6%82%E8%89%B2%E7%9A%84%E4%BD%9C%E6%96%87%E7%BA%B8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">被涂色的作文纸</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E9%80%83%E7%A6%BB%E5%8E%86%E5%8F%B2%E8%BD%A6%E8%BD%AE%E7%9A%84%E7%A2%BE%E5%8E%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">逃离历史车轮的碾压</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/operate-k/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Operate K</h2>
         </div>
     </a>
 </article>
